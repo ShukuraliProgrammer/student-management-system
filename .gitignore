@@ -7,4 +7,5 @@ main_app/migrations/*
 db.sqlite3
 env
 .env 
-
+ss
+./ss

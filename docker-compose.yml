@@ -1,0 +1,30 @@
+version: '3' 
+
+services:
+  db_mng_serv:
+    image: postgres:12.2 
+    container_name: db_mng_serv
+    environment: 
+      POSTGRES_USER: db_mng_user
+      POSTGRES_PASSWORD: db_mng_pass
+      POSTGRES_DB: db_mng_db
+    volumes:
+      - ./db_mng_serv:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: always
+
+  web_mng_service:
+    build: .
+    container_name: web_mng_service
+    command: python manage.py runserver 0.0.0.0:8002 
+    volumes:
+      - .:/app 
+    ports:
+      - "8002:8002"
+    depends_on:
+      - db_mng_serv
+    restart: always
+
+  
+    
